@@ -1,5 +1,7 @@
 package com.cydeo.tests;
 
+import com.cydeo.utils.Driver;
+import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,18 @@ public class Appium_Lessons01_Connection {
         System.out.println(driver.getDeviceTime());
 
         driver.quit();
+    }
+
+    @Test
+    public void testWithSingletonDriver(){
+
+        AppiumDriver driver = Driver.getDriver("local-sauceApp");
+
+        System.out.println(((AndroidDriver)driver).getDeviceTime()); // since we created our driver as AppiumDriver which is an interface we need to cast driver object to use some of the methods defined only in the Android class
+
+        Driver.closeDriver();
+
+        // IOS devices use totally a different application which have .ipa extension, when creating driver we need to provide that application parameters
     }
 
 }
