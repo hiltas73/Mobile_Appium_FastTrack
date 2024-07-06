@@ -16,18 +16,19 @@ public class Driver {
     public static AppiumDriver driver;
     public static URL url;
     public static UiAutomator2Options options = new UiAutomator2Options();
-    private Driver(){
+
+    private Driver() {
 
     }
 
-    public static AppiumDriver getDriver(String platformType){
+    public static AppiumDriver getDriver(String platformType) {
         String platform = ConfigurationReader.getProperty(platformType);
 
         String testDirectory = System.getProperty("user.dir");
 
-        if(Objects.isNull(driver)){
+        if (Objects.isNull(driver)) {
 
-            switch (platform){
+            switch (platform) {
                 case "local-android-sauceApp":
                     options.setApp(testDirectory + "/sauceLab.apk");
                     options.setAppActivity("com.swaglabsmobileapp.MainActivity");
@@ -37,7 +38,7 @@ public class Driver {
                     } catch (MalformedURLException e) {
                         throw new RuntimeException(e);
                     }
-                    driver = new AndroidDriver(url,options);
+                    driver = new AndroidDriver(url, options);
                     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
                     break;
                 case "remote-android-sauceApp":
@@ -47,12 +48,17 @@ public class Driver {
                     caps.setCapability("appium:platformVersion", "current_major");
                     caps.setCapability("appium:automationName", "UiAutomator2");
                     MutableCapabilities sauceOptions = new MutableCapabilities();
+                    // username and access key is unique to the user
                     sauceOptions.setCapability("username", "oauth-hiltas73-XXXXX");
                     sauceOptions.setCapability("accessKey", "super-secret-key");
-                    sauceOptions.setCapability("build", "Test001");
-                    sauceOptions.setCapability("name", "Android_Test");
+                    sauceOptions.setCapability("build", "<your build id>");
+                    sauceOptions.setCapability("name", "<your test name>");
                     sauceOptions.setCapability("deviceOrientation", "PORTRAIT");
                     caps.setCapability("sauce:options", sauceOptions);
+                    // add app activity and package
+                    caps.setCapability("appPackage", "com.swaglabsmobileapp");
+                    caps.setCapability("appActivity", "com.swaglabsmobileapp.MainActivity");
+
 
 // Start the session
                     try {
@@ -72,11 +78,13 @@ public class Driver {
 
 // end the session
                     // driver.executeScript("sauce:job-result=" + jobStatus);
-                    driver.quit();
+                    //driver.quit();
                     break;
                 case "remoteIOS-sauceApp":
                     MutableCapabilities capsI = new MutableCapabilities();
                     capsI.setCapability("platformName", "iOS");
+                    // The filename of the mobile app
+                    capsI.setCapability("appium:app", "https://github.com/saucelabs/sample-app-mobile/releases/download/2.7.1/iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa");
                     capsI.setCapability("appium:deviceName", "iPhone Simulator");
                     capsI.setCapability("appium:platformVersion", "current_major");
                     capsI.setCapability("appium:automationName", "XCUITest");
@@ -94,7 +102,7 @@ public class Driver {
                     } catch (MalformedURLException e) {
                         throw new RuntimeException(e);
                     }
-                    IOSDriver driver = new IOSDriver(url, capsI);
+                    driver = new IOSDriver(url, capsI);
 
 // replace with commands and assertions
                     try {
@@ -106,15 +114,15 @@ public class Driver {
 
 // end the session
                     //driver.executeScript("sauce:job-result=" + jobStatus);
-                    driver.quit();
+                    //driver.quit();
             }
 
         }
         return driver;
     }
 
-    public static void closeDriver(){
-        if(Objects.nonNull(driver)){
+    public static void closeDriver() {
+        if (Objects.nonNull(driver)) {
             driver.quit();
             driver = null;
         }
