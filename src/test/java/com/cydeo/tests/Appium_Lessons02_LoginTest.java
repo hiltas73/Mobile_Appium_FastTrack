@@ -1,5 +1,6 @@
 package com.cydeo.tests;
 
+import com.cydeo.pages.LoginPage;
 import com.cydeo.utils.Driver;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.AppiumDriver;
@@ -30,5 +31,26 @@ public class Appium_Lessons02_LoginTest {
 
         Driver.closeDriver();
     }
+
+    @Test
+    public void loginWithPOM() throws InterruptedException {
+
+        LoginPage page = new LoginPage("local");
+
+        page.userName.sendKeys("standard_user");
+        page.password.sendKeys("secret_sauce");
+        page.loginButton.click();
+
+        Thread.sleep(3000);
+
+        Driver.closeDriver();
+    }
+
+    /*
+    HW:
+    implement Conf.Reader and Conf.prop approach
+    then login to application and click on a product and verify
+
+     */
 
 }
