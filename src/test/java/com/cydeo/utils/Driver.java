@@ -29,7 +29,7 @@ public class Driver {
         if (Objects.isNull(driver)) {
 
             switch (platform) {
-                case "local-android-sauceApp":
+                case "local-android-sauceApp":  // get the configuration from SauceLabs
                     options.setApp(testDirectory + "/sauceLab.apk");
                     options.setAppActivity("com.swaglabsmobileapp.MainActivity");
                     options.setAppPackage("com.swaglabsmobileapp");
@@ -80,13 +80,13 @@ public class Driver {
                     // driver.executeScript("sauce:job-result=" + jobStatus);
                     //driver.quit();
                     break;
-                case "remoteIOS-sauceApp":
+
+                case "remoteIOS-sauceApp":  // get the configuration from SauceLabs
                     MutableCapabilities capsI = new MutableCapabilities();
                     capsI.setCapability("platformName", "iOS");
                     // The filename of the mobile app
                     capsI.setCapability("appium:app", "https://github.com/saucelabs/sample-app-mobile/releases/download/2.7.1/iOS.RealDevice.SauceLabs.Mobile.Sample.app.2.7.1.ipa");
-                    capsI.setCapability("appium:deviceName", "iPhone Simulator");
-                    capsI.setCapability("appium:platformVersion", "current_major");
+                    capsI.setCapability("appium:deviceName", "iPhone.*");
                     capsI.setCapability("appium:automationName", "XCUITest");
                     MutableCapabilities sauceOptionsI = new MutableCapabilities();
                     sauceOptionsI.setCapability("username", "oauth-hiltas73-XXXXX");
