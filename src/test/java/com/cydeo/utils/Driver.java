@@ -54,8 +54,8 @@ public class Driver {
                     MutableCapabilities sauceOptions = new MutableCapabilities();
                     sauceOptions.setCapability("appiumVersion", "2.0.0");
                     // username and access key is unique to the user
-                    sauceOptions.setCapability("username", "oauth-testermichael77-6fc8b");
-                    sauceOptions.setCapability("accessKey", "54923638-aed6-4432-8e2e-d8b72784bc1b");
+                    sauceOptions.setCapability("username", "secret-user");
+                    sauceOptions.setCapability("accessKey", "super-secret-password");
                     sauceOptions.setCapability("build", "sauceLab123");
                     sauceOptions.setCapability("name", "smokeTest");
                     sauceOptions.setCapability("deviceOrientation", "PORTRAIT");
@@ -76,8 +76,8 @@ public class Driver {
                     capsI.setCapability("appium:automationName", "XCUITest");
                     MutableCapabilities sauceOptionsI = new MutableCapabilities();
 
-                    sauceOptionsI.setCapability("username", "oauth-testermichael77-6fc8b");
-                    sauceOptionsI.setCapability("accessKey", "54923638-aed6-4432-8e2e-d8b72784bc1b");
+                    sauceOptionsI.setCapability("username", "secret-user");
+                    sauceOptionsI.setCapability("accessKey", "super-secret-password");
                     sauceOptionsI.setCapability("build", "Test123");
                     sauceOptionsI.setCapability("name", "IOS_Test");
                     sauceOptionsI.setCapability("deviceOrientation", "PORTRAIT");
@@ -101,6 +101,4 @@ public class Driver {
             driver = null;
         }
     }
-
-
 }
